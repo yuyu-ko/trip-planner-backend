@@ -6,7 +6,6 @@ import com.example.tripplanner.exception.ResourceNotFoundException;
 import com.example.tripplanner.model.*;
 import com.example.tripplanner.repository.TripRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class TripService {
 
     private final TripRepository tripRepository;

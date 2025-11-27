@@ -1,6 +1,5 @@
 package com.example.tripplanner.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,7 +35,6 @@ public class Trip {
     private TripStatus status;
 
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<DayPlan> dayPlans = new ArrayList<>();
 
     @Column(name = "user_id")
