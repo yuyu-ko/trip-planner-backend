@@ -1,5 +1,5 @@
 # 1. 建置階段 (Builder Stage)
-FROM eclipse-temurin:17-jdk-alpine as builder
+FROM eclipse-temurin:17-jdk-alpine AS builder
 WORKDIR /app
 COPY . .
 # 賦予 mvnw 執行權限並打包 (跳過測試以加速)
