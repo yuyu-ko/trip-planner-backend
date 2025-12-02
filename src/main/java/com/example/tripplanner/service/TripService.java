@@ -174,17 +174,28 @@ public class TripService {
 
             List<Activity> activities = new ArrayList<>();
 
+            // 在 saveAIItineraryToDB 方法內...
+
             for (ActivityDTO actDto : dayDto.getActivities()) {
-                // ⭐ Google Rating 查詢
-                Double rating = googlePlacesService.getPlaceRating(actDto.getLocation());
+
+                // 🔴原本是這樣 (只用 location 查評分，容易找不到)：
+                // Double rating = googlePlacesService.getPlaceRating(actDto.getLocation());
+
+                // 🟢 修改後：建立一個更精準的搜尋字串 (名稱 + 地點)
                 String placeQuery = actDto.getTitle() + " " + actDto.getLocation();
+
+                // 用這個組合字串去查評分，Google 比較容易聽懂
+                Double rating = googlePlacesService.getPlaceRating(placeQuery);
+
+                // 圖片也是用同樣的 query (這行原本就有，保持不動)
                 String imageUrl = googlePlacesService.getPlacePhotoUrl(placeQuery);
+
                 Activity activity = Activity.builder()
                         .time(actDto.getTime())
                         .title(actDto.getTitle())
                         .description(actDto.getDescription())
                         .location(actDto.getLocation())
-                        .googleRating(rating)
+                        .googleRating(rating) // 存入更準確的評分
                         .imageUrl(imageUrl)
                         .dayPlan(dayPlan)
                         .build();
